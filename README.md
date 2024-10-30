@@ -43,3 +43,4 @@ Ordered roughly in order of what would be best to do first
 * [Legacy Update](https://legacyupdate.net) for providing mirrors for some assets
 * [Free60 Wiki](https://free60.org/)
 * [NeKzor's Xlive reversing from Tron Evolution](https://github.com/NeKzor/tem/blob/master/doc/src/reversed/xlive.md)
+* [XLiveLessNess](https://gitlab.com/GlitchyScripts/xlivelessness)

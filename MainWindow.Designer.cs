@@ -41,18 +41,15 @@
             this.manageMarketplaceButton = new System.Windows.Forms.Button();
             this.marketplaceLogoPicture = new System.Windows.Forms.PictureBox();
             this.marketplaceInstallLabel = new System.Windows.Forms.Label();
-            this.installMarketplaceButton = new GfWLUtility.ElevatedButton();
             this.marketplaceVersionLabel = new System.Windows.Forms.Label();
             this.wlidGroup = new System.Windows.Forms.GroupBox();
             this.wlidLogoPicture = new System.Windows.Forms.PictureBox();
             this.wlidInstallLabel = new System.Windows.Forms.Label();
-            this.installWLIDButton = new GfWLUtility.ElevatedButton();
             this.wlidInfoLabel = new System.Windows.Forms.Label();
             this.runtimeGroup = new System.Windows.Forms.GroupBox();
             this.manageRuntimeButton = new System.Windows.Forms.Button();
             this.gfwlLogoPicture = new System.Windows.Forms.PictureBox();
             this.runtimeInstallLabel = new System.Windows.Forms.Label();
-            this.installRuntimeButton = new GfWLUtility.ElevatedButton();
             this.runtimeVersionLabel = new System.Windows.Forms.Label();
             this.accountsTab = new System.Windows.Forms.TabPage();
             this.onlineXuidLabel = new System.Windows.Forms.Label();
@@ -80,8 +77,6 @@
             this.connBlockGroup = new System.Windows.Forms.GroupBox();
             this.blockLiveInfoLabel = new System.Windows.Forms.Label();
             this.blockServicesInfoLabel = new System.Windows.Forms.Label();
-            this.blockServicesButton = new GfWLUtility.ElevatedButton();
-            this.blockLiveButton = new GfWLUtility.ElevatedButton();
             this.dataExportGroup = new System.Windows.Forms.GroupBox();
             this.dataExportInfoLabel = new System.Windows.Forms.Label();
             this.dataImportButton = new System.Windows.Forms.Button();
@@ -89,6 +84,11 @@
             this.label1 = new System.Windows.Forms.Label();
             this.githubLinkLabel = new System.Windows.Forms.LinkLabel();
             this.appVersionLabel = new System.Windows.Forms.Label();
+            this.installMarketplaceButton = new GfWLUtility.ElevatedButton();
+            this.installWLIDButton = new GfWLUtility.ElevatedButton();
+            this.installRuntimeButton = new GfWLUtility.ElevatedButton();
+            this.blockServicesButton = new GfWLUtility.ElevatedButton();
+            this.blockLiveButton = new GfWLUtility.ElevatedButton();
             this.mainTabControl.SuspendLayout();
             this.runtimeTab.SuspendLayout();
             this.systemInfoGroup.SuspendLayout();
@@ -240,17 +240,6 @@
             this.marketplaceInstallLabel.TabIndex = 0;
             this.marketplaceInstallLabel.Text = "Marketplace installed placeholder";
             // 
-            // installMarketplaceButton
-            // 
-            this.installMarketplaceButton.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.installMarketplaceButton.Location = new System.Drawing.Point(6, 73);
-            this.installMarketplaceButton.Name = "installMarketplaceButton";
-            this.installMarketplaceButton.Size = new System.Drawing.Size(227, 23);
-            this.installMarketplaceButton.TabIndex = 8;
-            this.installMarketplaceButton.Text = "Install marketplace";
-            this.installMarketplaceButton.UseVisualStyleBackColor = true;
-            this.installMarketplaceButton.Click += new System.EventHandler(this.installMarketplaceButton_Click);
-            // 
             // marketplaceVersionLabel
             // 
             this.marketplaceVersionLabel.AutoSize = true;
@@ -290,17 +279,6 @@
             this.wlidInstallLabel.Size = new System.Drawing.Size(134, 13);
             this.wlidInstallLabel.TabIndex = 5;
             this.wlidInstallLabel.Text = "WLID installed placeholder";
-            // 
-            // installWLIDButton
-            // 
-            this.installWLIDButton.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.installWLIDButton.Location = new System.Drawing.Point(6, 73);
-            this.installWLIDButton.Name = "installWLIDButton";
-            this.installWLIDButton.Size = new System.Drawing.Size(177, 23);
-            this.installWLIDButton.TabIndex = 9;
-            this.installWLIDButton.Text = "Install sign-in assistant";
-            this.installWLIDButton.UseVisualStyleBackColor = true;
-            this.installWLIDButton.Click += new System.EventHandler(this.installWLIDButton_Click);
             // 
             // wlidInfoLabel
             // 
@@ -352,17 +330,6 @@
             this.runtimeInstallLabel.Size = new System.Drawing.Size(145, 13);
             this.runtimeInstallLabel.TabIndex = 0;
             this.runtimeInstallLabel.Text = "Runtime installed placeholder";
-            // 
-            // installRuntimeButton
-            // 
-            this.installRuntimeButton.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.installRuntimeButton.Location = new System.Drawing.Point(6, 73);
-            this.installRuntimeButton.Name = "installRuntimeButton";
-            this.installRuntimeButton.Size = new System.Drawing.Size(227, 23);
-            this.installRuntimeButton.TabIndex = 8;
-            this.installRuntimeButton.Text = "Install runtime";
-            this.installRuntimeButton.UseVisualStyleBackColor = true;
-            this.installRuntimeButton.Click += new System.EventHandler(this.installRuntimeButton_Click);
             // 
             // runtimeVersionLabel
             // 
@@ -647,28 +614,6 @@
             this.blockServicesInfoLabel.TabIndex = 3;
             this.blockServicesInfoLabel.Text = "Blocks GfWL marketplace services to speed up loading.\r\n(Recommended)";
             // 
-            // blockServicesButton
-            // 
-            this.blockServicesButton.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.blockServicesButton.Location = new System.Drawing.Point(6, 19);
-            this.blockServicesButton.Name = "blockServicesButton";
-            this.blockServicesButton.Size = new System.Drawing.Size(124, 23);
-            this.blockServicesButton.TabIndex = 1;
-            this.blockServicesButton.Text = "Block Services";
-            this.blockServicesButton.UseVisualStyleBackColor = true;
-            this.blockServicesButton.Click += new System.EventHandler(this.blockServicesButton_Click);
-            // 
-            // blockLiveButton
-            // 
-            this.blockLiveButton.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.blockLiveButton.Location = new System.Drawing.Point(6, 53);
-            this.blockLiveButton.Name = "blockLiveButton";
-            this.blockLiveButton.Size = new System.Drawing.Size(124, 23);
-            this.blockLiveButton.TabIndex = 0;
-            this.blockLiveButton.Text = "Block LIVE";
-            this.blockLiveButton.UseVisualStyleBackColor = true;
-            this.blockLiveButton.Click += new System.EventHandler(this.blockLiveButton_Click);
-            // 
             // dataExportGroup
             // 
             this.dataExportGroup.Controls.Add(this.dataExportInfoLabel);
@@ -738,6 +683,61 @@
             this.appVersionLabel.Size = new System.Drawing.Size(107, 13);
             this.appVersionLabel.TabIndex = 3;
             this.appVersionLabel.Text = "version 1.0.0.0-beta1";
+            // 
+            // installMarketplaceButton
+            // 
+            this.installMarketplaceButton.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.installMarketplaceButton.Location = new System.Drawing.Point(6, 73);
+            this.installMarketplaceButton.Name = "installMarketplaceButton";
+            this.installMarketplaceButton.Size = new System.Drawing.Size(227, 23);
+            this.installMarketplaceButton.TabIndex = 8;
+            this.installMarketplaceButton.Text = "Install marketplace";
+            this.installMarketplaceButton.UseVisualStyleBackColor = true;
+            this.installMarketplaceButton.Click += new System.EventHandler(this.installMarketplaceButton_Click);
+            // 
+            // installWLIDButton
+            // 
+            this.installWLIDButton.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.installWLIDButton.Location = new System.Drawing.Point(6, 73);
+            this.installWLIDButton.Name = "installWLIDButton";
+            this.installWLIDButton.Size = new System.Drawing.Size(177, 23);
+            this.installWLIDButton.TabIndex = 9;
+            this.installWLIDButton.Text = "Install sign-in assistant";
+            this.installWLIDButton.UseVisualStyleBackColor = true;
+            this.installWLIDButton.Click += new System.EventHandler(this.installWLIDButton_Click);
+            // 
+            // installRuntimeButton
+            // 
+            this.installRuntimeButton.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.installRuntimeButton.Location = new System.Drawing.Point(6, 73);
+            this.installRuntimeButton.Name = "installRuntimeButton";
+            this.installRuntimeButton.Size = new System.Drawing.Size(227, 23);
+            this.installRuntimeButton.TabIndex = 8;
+            this.installRuntimeButton.Text = "Install runtime";
+            this.installRuntimeButton.UseVisualStyleBackColor = true;
+            this.installRuntimeButton.Click += new System.EventHandler(this.installRuntimeButton_Click);
+            // 
+            // blockServicesButton
+            // 
+            this.blockServicesButton.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.blockServicesButton.Location = new System.Drawing.Point(6, 19);
+            this.blockServicesButton.Name = "blockServicesButton";
+            this.blockServicesButton.Size = new System.Drawing.Size(124, 23);
+            this.blockServicesButton.TabIndex = 1;
+            this.blockServicesButton.Text = "Block Services";
+            this.blockServicesButton.UseVisualStyleBackColor = true;
+            this.blockServicesButton.Click += new System.EventHandler(this.blockServicesButton_Click);
+            // 
+            // blockLiveButton
+            // 
+            this.blockLiveButton.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.blockLiveButton.Location = new System.Drawing.Point(6, 53);
+            this.blockLiveButton.Name = "blockLiveButton";
+            this.blockLiveButton.Size = new System.Drawing.Size(124, 23);
+            this.blockLiveButton.TabIndex = 0;
+            this.blockLiveButton.Text = "Block LIVE";
+            this.blockLiveButton.UseVisualStyleBackColor = true;
+            this.blockLiveButton.Click += new System.EventHandler(this.blockLiveButton_Click);
             // 
             // MainWindow
             // 
