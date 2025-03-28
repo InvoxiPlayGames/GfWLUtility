@@ -55,6 +55,9 @@
   <PropertyGroup>
     <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -87,6 +90,12 @@
     <Compile Include="ExportXMLClasses.cs" />
     <Compile Include="FileInformation.cs" />
     <Compile Include="GfWLRegistry.cs" />
+    <Compile Include="InsertKey.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="InsertKey.Designer.cs">
+      <DependentUpon>InsertKey.cs</DependentUpon>
+    </Compile>
     <Compile Include="MainWindow.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -103,6 +112,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="ExportForm.resx">
       <DependentUpon>ExportForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="InsertKey.resx">
+      <DependentUpon>InsertKey.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MainWindow.resx">
       <DependentUpon>MainWindow.cs</DependentUpon>
@@ -137,6 +149,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="GfWLUtilityLogo.ico" />
+    <Content Include="LiveTokenHelper.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
