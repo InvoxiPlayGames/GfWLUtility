@@ -41,29 +41,31 @@
             this.manageMarketplaceButton = new System.Windows.Forms.Button();
             this.marketplaceLogoPicture = new System.Windows.Forms.PictureBox();
             this.marketplaceInstallLabel = new System.Windows.Forms.Label();
+            this.installMarketplaceButton = new GfWLUtility.ElevatedButton();
             this.marketplaceVersionLabel = new System.Windows.Forms.Label();
             this.wlidGroup = new System.Windows.Forms.GroupBox();
             this.wlidLogoPicture = new System.Windows.Forms.PictureBox();
             this.wlidInstallLabel = new System.Windows.Forms.Label();
+            this.installWLIDButton = new GfWLUtility.ElevatedButton();
             this.wlidInfoLabel = new System.Windows.Forms.Label();
             this.runtimeGroup = new System.Windows.Forms.GroupBox();
             this.manageRuntimeButton = new System.Windows.Forms.Button();
             this.gfwlLogoPicture = new System.Windows.Forms.PictureBox();
             this.runtimeInstallLabel = new System.Windows.Forms.Label();
+            this.installRuntimeButton = new GfWLUtility.ElevatedButton();
             this.runtimeVersionLabel = new System.Windows.Forms.Label();
             this.accountsTab = new System.Windows.Forms.TabPage();
             this.onlineXuidLabel = new System.Windows.Forms.Label();
             this.onlineXuidBox = new System.Windows.Forms.TextBox();
-            this.accountGamerpic = new System.Windows.Forms.PictureBox();
             this.accountLiveCheck = new System.Windows.Forms.CheckBox();
             this.accountXuidBox = new System.Windows.Forms.TextBox();
             this.accountNameBox = new System.Windows.Forms.TextBox();
             this.accountXuidLabel = new System.Windows.Forms.Label();
             this.accountNameLabel = new System.Windows.Forms.Label();
+            this.accountGamerpic = new System.Windows.Forms.PictureBox();
             this.accountsListBox = new System.Windows.Forms.ListBox();
             this.gamesTab = new System.Windows.Forms.TabPage();
             this.titleIDFormattedLabel = new System.Windows.Forms.Label();
-            this.titleIconPicture = new System.Windows.Forms.PictureBox();
             this.titleClearConfigLink = new System.Windows.Forms.LinkLabel();
             this.titleShowKeyCheck = new System.Windows.Forms.CheckBox();
             this.titleKeyLabel = new System.Windows.Forms.Label();
@@ -72,11 +74,17 @@
             this.titleNameBox = new System.Windows.Forms.TextBox();
             this.titleIDLabel = new System.Windows.Forms.Label();
             this.titleNameLabel = new System.Windows.Forms.Label();
+            this.titleIconPicture = new System.Windows.Forms.PictureBox();
             this.gameListBox = new System.Windows.Forms.ListBox();
             this.utilitiesTab = new System.Windows.Forms.TabPage();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.button1 = new System.Windows.Forms.Button();
             this.connBlockGroup = new System.Windows.Forms.GroupBox();
             this.blockLiveInfoLabel = new System.Windows.Forms.Label();
             this.blockServicesInfoLabel = new System.Windows.Forms.Label();
+            this.blockServicesButton = new GfWLUtility.ElevatedButton();
+            this.blockLiveButton = new GfWLUtility.ElevatedButton();
             this.dataExportGroup = new System.Windows.Forms.GroupBox();
             this.dataExportInfoLabel = new System.Windows.Forms.Label();
             this.dataImportButton = new System.Windows.Forms.Button();
@@ -84,11 +92,6 @@
             this.label1 = new System.Windows.Forms.Label();
             this.githubLinkLabel = new System.Windows.Forms.LinkLabel();
             this.appVersionLabel = new System.Windows.Forms.Label();
-            this.installMarketplaceButton = new GfWLUtility.ElevatedButton();
-            this.installWLIDButton = new GfWLUtility.ElevatedButton();
-            this.installRuntimeButton = new GfWLUtility.ElevatedButton();
-            this.blockServicesButton = new GfWLUtility.ElevatedButton();
-            this.blockLiveButton = new GfWLUtility.ElevatedButton();
             this.mainTabControl.SuspendLayout();
             this.runtimeTab.SuspendLayout();
             this.systemInfoGroup.SuspendLayout();
@@ -103,6 +106,7 @@
             this.gamesTab.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.titleIconPicture)).BeginInit();
             this.utilitiesTab.SuspendLayout();
+            this.groupBox1.SuspendLayout();
             this.connBlockGroup.SuspendLayout();
             this.dataExportGroup.SuspendLayout();
             this.SuspendLayout();
@@ -240,6 +244,17 @@
             this.marketplaceInstallLabel.TabIndex = 0;
             this.marketplaceInstallLabel.Text = "Marketplace installed placeholder";
             // 
+            // installMarketplaceButton
+            // 
+            this.installMarketplaceButton.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.installMarketplaceButton.Location = new System.Drawing.Point(6, 73);
+            this.installMarketplaceButton.Name = "installMarketplaceButton";
+            this.installMarketplaceButton.Size = new System.Drawing.Size(227, 23);
+            this.installMarketplaceButton.TabIndex = 8;
+            this.installMarketplaceButton.Text = "Install marketplace";
+            this.installMarketplaceButton.UseVisualStyleBackColor = true;
+            this.installMarketplaceButton.Click += new System.EventHandler(this.installMarketplaceButton_Click);
+            // 
             // marketplaceVersionLabel
             // 
             this.marketplaceVersionLabel.AutoSize = true;
@@ -279,6 +294,17 @@
             this.wlidInstallLabel.Size = new System.Drawing.Size(134, 13);
             this.wlidInstallLabel.TabIndex = 5;
             this.wlidInstallLabel.Text = "WLID installed placeholder";
+            // 
+            // installWLIDButton
+            // 
+            this.installWLIDButton.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.installWLIDButton.Location = new System.Drawing.Point(6, 73);
+            this.installWLIDButton.Name = "installWLIDButton";
+            this.installWLIDButton.Size = new System.Drawing.Size(177, 23);
+            this.installWLIDButton.TabIndex = 9;
+            this.installWLIDButton.Text = "Install sign-in assistant";
+            this.installWLIDButton.UseVisualStyleBackColor = true;
+            this.installWLIDButton.Click += new System.EventHandler(this.installWLIDButton_Click);
             // 
             // wlidInfoLabel
             // 
@@ -331,6 +357,17 @@
             this.runtimeInstallLabel.TabIndex = 0;
             this.runtimeInstallLabel.Text = "Runtime installed placeholder";
             // 
+            // installRuntimeButton
+            // 
+            this.installRuntimeButton.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.installRuntimeButton.Location = new System.Drawing.Point(6, 73);
+            this.installRuntimeButton.Name = "installRuntimeButton";
+            this.installRuntimeButton.Size = new System.Drawing.Size(227, 23);
+            this.installRuntimeButton.TabIndex = 8;
+            this.installRuntimeButton.Text = "Install runtime";
+            this.installRuntimeButton.UseVisualStyleBackColor = true;
+            this.installRuntimeButton.Click += new System.EventHandler(this.installRuntimeButton_Click);
+            // 
             // runtimeVersionLabel
             // 
             this.runtimeVersionLabel.AutoSize = true;
@@ -344,12 +381,12 @@
             // 
             this.accountsTab.Controls.Add(this.onlineXuidLabel);
             this.accountsTab.Controls.Add(this.onlineXuidBox);
-            this.accountsTab.Controls.Add(this.accountGamerpic);
             this.accountsTab.Controls.Add(this.accountLiveCheck);
             this.accountsTab.Controls.Add(this.accountXuidBox);
             this.accountsTab.Controls.Add(this.accountNameBox);
             this.accountsTab.Controls.Add(this.accountXuidLabel);
             this.accountsTab.Controls.Add(this.accountNameLabel);
+            this.accountsTab.Controls.Add(this.accountGamerpic);
             this.accountsTab.Controls.Add(this.accountsListBox);
             this.accountsTab.Location = new System.Drawing.Point(4, 22);
             this.accountsTab.Name = "accountsTab";
@@ -379,14 +416,6 @@
             this.onlineXuidBox.TabIndex = 17;
             this.onlineXuidBox.Text = "DEADBEEFDEADBEEF";
             this.onlineXuidBox.Visible = false;
-            // 
-            // accountGamerpic
-            // 
-            this.accountGamerpic.Location = new System.Drawing.Point(376, 58);
-            this.accountGamerpic.Name = "accountGamerpic";
-            this.accountGamerpic.Size = new System.Drawing.Size(64, 64);
-            this.accountGamerpic.TabIndex = 16;
-            this.accountGamerpic.TabStop = false;
             // 
             // accountLiveCheck
             // 
@@ -437,6 +466,14 @@
             this.accountNameLabel.TabIndex = 11;
             this.accountNameLabel.Text = "Gamertag:";
             // 
+            // accountGamerpic
+            // 
+            this.accountGamerpic.Location = new System.Drawing.Point(376, 58);
+            this.accountGamerpic.Name = "accountGamerpic";
+            this.accountGamerpic.Size = new System.Drawing.Size(64, 64);
+            this.accountGamerpic.TabIndex = 16;
+            this.accountGamerpic.TabStop = false;
+            // 
             // accountsListBox
             // 
             this.accountsListBox.FormattingEnabled = true;
@@ -449,7 +486,6 @@
             // gamesTab
             // 
             this.gamesTab.Controls.Add(this.titleIDFormattedLabel);
-            this.gamesTab.Controls.Add(this.titleIconPicture);
             this.gamesTab.Controls.Add(this.titleClearConfigLink);
             this.gamesTab.Controls.Add(this.titleShowKeyCheck);
             this.gamesTab.Controls.Add(this.titleKeyLabel);
@@ -458,6 +494,7 @@
             this.gamesTab.Controls.Add(this.titleNameBox);
             this.gamesTab.Controls.Add(this.titleIDLabel);
             this.gamesTab.Controls.Add(this.titleNameLabel);
+            this.gamesTab.Controls.Add(this.titleIconPicture);
             this.gamesTab.Controls.Add(this.gameListBox);
             this.gamesTab.Location = new System.Drawing.Point(4, 22);
             this.gamesTab.Name = "gamesTab";
@@ -475,14 +512,6 @@
             this.titleIDFormattedLabel.Size = new System.Drawing.Size(62, 13);
             this.titleIDFormattedLabel.TabIndex = 18;
             this.titleIDFormattedLabel.Text = "(WW-9999)";
-            // 
-            // titleIconPicture
-            // 
-            this.titleIconPicture.Location = new System.Drawing.Point(376, 58);
-            this.titleIconPicture.Name = "titleIconPicture";
-            this.titleIconPicture.Size = new System.Drawing.Size(64, 64);
-            this.titleIconPicture.TabIndex = 17;
-            this.titleIconPicture.TabStop = false;
             // 
             // titleClearConfigLink
             // 
@@ -562,6 +591,14 @@
             this.titleNameLabel.TabIndex = 1;
             this.titleNameLabel.Text = "Game Name:";
             // 
+            // titleIconPicture
+            // 
+            this.titleIconPicture.Location = new System.Drawing.Point(376, 58);
+            this.titleIconPicture.Name = "titleIconPicture";
+            this.titleIconPicture.Size = new System.Drawing.Size(64, 64);
+            this.titleIconPicture.TabIndex = 17;
+            this.titleIconPicture.TabStop = false;
+            // 
             // gameListBox
             // 
             this.gameListBox.FormattingEnabled = true;
@@ -573,6 +610,7 @@
             // 
             // utilitiesTab
             // 
+            this.utilitiesTab.Controls.Add(this.groupBox1);
             this.utilitiesTab.Controls.Add(this.connBlockGroup);
             this.utilitiesTab.Controls.Add(this.dataExportGroup);
             this.utilitiesTab.Location = new System.Drawing.Point(4, 22);
@@ -582,6 +620,37 @@
             this.utilitiesTab.TabIndex = 5;
             this.utilitiesTab.Text = "Utilities";
             this.utilitiesTab.UseVisualStyleBackColor = true;
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.label2);
+            this.groupBox1.Controls.Add(this.button1);
+            this.groupBox1.Location = new System.Drawing.Point(6, 154);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(434, 64);
+            this.groupBox1.TabIndex = 5;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Product Key Import";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(136, 16);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(259, 39);
+            this.label2.TabIndex = 1;
+            this.label2.Text = "This will allow you to enter a key to each game based\r\non Title ID\r\nUsing SecuROM" +
+    "\'s Live Token Helper";
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(6, 19);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(124, 23);
+            this.button1.TabIndex = 0;
+            this.button1.Text = "Enter Key";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.AddKey);
             // 
             // connBlockGroup
             // 
@@ -613,6 +682,28 @@
             this.blockServicesInfoLabel.Size = new System.Drawing.Size(272, 26);
             this.blockServicesInfoLabel.TabIndex = 3;
             this.blockServicesInfoLabel.Text = "Blocks GfWL marketplace services to speed up loading.\r\n(Recommended)";
+            // 
+            // blockServicesButton
+            // 
+            this.blockServicesButton.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.blockServicesButton.Location = new System.Drawing.Point(6, 19);
+            this.blockServicesButton.Name = "blockServicesButton";
+            this.blockServicesButton.Size = new System.Drawing.Size(124, 23);
+            this.blockServicesButton.TabIndex = 1;
+            this.blockServicesButton.Text = "Block Services";
+            this.blockServicesButton.UseVisualStyleBackColor = true;
+            this.blockServicesButton.Click += new System.EventHandler(this.blockServicesButton_Click);
+            // 
+            // blockLiveButton
+            // 
+            this.blockLiveButton.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.blockLiveButton.Location = new System.Drawing.Point(6, 53);
+            this.blockLiveButton.Name = "blockLiveButton";
+            this.blockLiveButton.Size = new System.Drawing.Size(124, 23);
+            this.blockLiveButton.TabIndex = 0;
+            this.blockLiveButton.Text = "Block LIVE";
+            this.blockLiveButton.UseVisualStyleBackColor = true;
+            this.blockLiveButton.Click += new System.EventHandler(this.blockLiveButton_Click);
             // 
             // dataExportGroup
             // 
@@ -682,62 +773,7 @@
             this.appVersionLabel.Name = "appVersionLabel";
             this.appVersionLabel.Size = new System.Drawing.Size(107, 13);
             this.appVersionLabel.TabIndex = 3;
-            this.appVersionLabel.Text = "version 1.0.0.0-beta1";
-            // 
-            // installMarketplaceButton
-            // 
-            this.installMarketplaceButton.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.installMarketplaceButton.Location = new System.Drawing.Point(6, 73);
-            this.installMarketplaceButton.Name = "installMarketplaceButton";
-            this.installMarketplaceButton.Size = new System.Drawing.Size(227, 23);
-            this.installMarketplaceButton.TabIndex = 8;
-            this.installMarketplaceButton.Text = "Install marketplace";
-            this.installMarketplaceButton.UseVisualStyleBackColor = true;
-            this.installMarketplaceButton.Click += new System.EventHandler(this.installMarketplaceButton_Click);
-            // 
-            // installWLIDButton
-            // 
-            this.installWLIDButton.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.installWLIDButton.Location = new System.Drawing.Point(6, 73);
-            this.installWLIDButton.Name = "installWLIDButton";
-            this.installWLIDButton.Size = new System.Drawing.Size(177, 23);
-            this.installWLIDButton.TabIndex = 9;
-            this.installWLIDButton.Text = "Install sign-in assistant";
-            this.installWLIDButton.UseVisualStyleBackColor = true;
-            this.installWLIDButton.Click += new System.EventHandler(this.installWLIDButton_Click);
-            // 
-            // installRuntimeButton
-            // 
-            this.installRuntimeButton.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.installRuntimeButton.Location = new System.Drawing.Point(6, 73);
-            this.installRuntimeButton.Name = "installRuntimeButton";
-            this.installRuntimeButton.Size = new System.Drawing.Size(227, 23);
-            this.installRuntimeButton.TabIndex = 8;
-            this.installRuntimeButton.Text = "Install runtime";
-            this.installRuntimeButton.UseVisualStyleBackColor = true;
-            this.installRuntimeButton.Click += new System.EventHandler(this.installRuntimeButton_Click);
-            // 
-            // blockServicesButton
-            // 
-            this.blockServicesButton.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.blockServicesButton.Location = new System.Drawing.Point(6, 19);
-            this.blockServicesButton.Name = "blockServicesButton";
-            this.blockServicesButton.Size = new System.Drawing.Size(124, 23);
-            this.blockServicesButton.TabIndex = 1;
-            this.blockServicesButton.Text = "Block Services";
-            this.blockServicesButton.UseVisualStyleBackColor = true;
-            this.blockServicesButton.Click += new System.EventHandler(this.blockServicesButton_Click);
-            // 
-            // blockLiveButton
-            // 
-            this.blockLiveButton.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.blockLiveButton.Location = new System.Drawing.Point(6, 53);
-            this.blockLiveButton.Name = "blockLiveButton";
-            this.blockLiveButton.Size = new System.Drawing.Size(124, 23);
-            this.blockLiveButton.TabIndex = 0;
-            this.blockLiveButton.Text = "Block LIVE";
-            this.blockLiveButton.UseVisualStyleBackColor = true;
-            this.blockLiveButton.Click += new System.EventHandler(this.blockLiveButton_Click);
+            this.appVersionLabel.Text = "version 1.0.0.0-beta2";
             // 
             // MainWindow
             // 
@@ -776,6 +812,8 @@
             this.gamesTab.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.titleIconPicture)).EndInit();
             this.utilitiesTab.ResumeLayout(false);
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
             this.connBlockGroup.ResumeLayout(false);
             this.connBlockGroup.PerformLayout();
             this.dataExportGroup.ResumeLayout(false);
@@ -847,6 +885,9 @@
         private System.Windows.Forms.Label titleIDFormattedLabel;
         private System.Windows.Forms.Label onlineXuidLabel;
         private System.Windows.Forms.TextBox onlineXuidBox;
+        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Button button1;
     }
 }
 

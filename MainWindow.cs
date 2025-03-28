@@ -465,5 +465,11 @@ PRs welcome on GitHub!", "Notice", MessageBoxButtons.OK, MessageBoxIcon.Warning)
                 DoMSIDownloadAndInstall(StaticFileInformation.wllogin_64_msi);
             LoadWLIDGroup();
         }
+
+        private void AddKey(object sender, EventArgs e)
+        {
+            Form addKeyWindow = new InsertKey();
+            addKeyWindow.ShowDialog();
+        }
     }
 }

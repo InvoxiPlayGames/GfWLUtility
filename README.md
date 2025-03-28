@@ -13,6 +13,7 @@ This is incomplete. There will be bugs.
 ## Current Features:
 
 - View saved product keys
+- Write Product Keys to GFWL.
 - View some profile metadata (not everything, see TODO)
 - View some game information (not everything, see TODO)
 - Create a backup of all GfWL data including product keys and config sectors
