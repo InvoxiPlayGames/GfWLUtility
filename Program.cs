@@ -12,12 +12,17 @@ namespace GfWLUtility
     {
         public static bool Elevated = false;
 
+        public static string[] Arguments = null;
+
         /// <summary>
         /// The main entry point for the application.
         /// </summary>
         [STAThread]
-        static void Main()
+        static void Main(string[] args)
         {
+            // store arguments
+            Arguments = args;
+
             // store elevation status
             WindowsIdentity identity = WindowsIdentity.GetCurrent();
             WindowsPrincipal principal = new WindowsPrincipal(identity);
@@ -29,10 +34,11 @@ namespace GfWLUtility
             Application.Run(new MainWindow());
         }
 
-        public static void RelaunchAsAdmin()
+        public static void RelaunchAsAdmin(string arguments = null)
         {
             Process p = new Process();
             p.StartInfo.FileName = Assembly.GetExecutingAssembly().Location;
+            p.StartInfo.Arguments = arguments;
             p.StartInfo.UseShellExecute = true;
             p.StartInfo.Verb = "runas";
             p.Start();

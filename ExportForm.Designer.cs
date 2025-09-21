@@ -179,7 +179,7 @@
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "ExportForm";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Export Games for Windows - LIVE Data";
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();

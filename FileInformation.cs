@@ -93,7 +93,7 @@ namespace GfWLUtility
         };
 
         // wllogin_32.msi - x86 Windows Live Identity Client Runtime Library
-        // !! DANGER: ONLY HAS 1 MIRROR !!
+        // found in tu10177600_35005f00.cab as well
         public static FileInformation wllogin_32_msi = new FileInformation()
         {
             Filename = "wllogin_32.msi",
@@ -110,8 +110,8 @@ namespace GfWLUtility
             }
         };
 
-        // wllogin_64.msi - x64 Windows Live Identity Client Runtime Library. not used by GfWL but completeness
-        // !! DANGER: ONLY HAS 1 MIRROR !!
+        // wllogin_64.msi - x64 Windows Live Identity Client Runtime Library
+        // found in tu10177600_35005f00.cab as well
         public static FileInformation wllogin_64_msi = new FileInformation()
         {
             Filename = "wllogin_64.msi",
@@ -125,6 +125,25 @@ namespace GfWLUtility
             Hash = new byte[0x14]
             {
                 0x10, 0x78, 0xd3, 0x2c, 0xae, 0x64, 0xab, 0x1c, 0x5b, 0xce, 0x52, 0x63, 0x7e, 0xfa, 0xcb, 0xde, 0x70, 0xfa, 0x26, 0x70
+            }
+        };
+
+        // 4d5307d6/tu10000081_00000000.cab - Shadowrun latest title update
+        public static FileInformation shadowrun_tu10000081_cab = new FileInformation()
+        {
+            Filename = "tu10000081_00000000.cab",
+            AltFilenames = null,
+            DownloadURLs = new string[]
+            {
+                // Official Microsoft URL
+                "http://download.xbox.com/content/4d5307d6/tu10000081_00000000.cab",
+                // Internet Archive archived URL
+                "http://web.archive.org/web/20250919190312id_/download.xbox.com/content/4d5307d6/tu10000081_00000000.cab"
+            },
+            Size = 7508950,
+            Hash = new byte[0x14]
+            {
+                0xfd, 0xb3, 0x10, 0xcf, 0x91, 0x94, 0xc4, 0xfd, 0x81, 0x9b, 0x9f, 0x98, 0x97, 0xe9, 0x02, 0x65, 0x05, 0xa9, 0x69, 0x82
             }
         };
     }

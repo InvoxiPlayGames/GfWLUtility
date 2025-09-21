@@ -1,6 +1,6 @@
 # GfWL Utility
 
-Work-in-progress highly incomplete utility for working with Games for Windows - LIVE.
+Work-in-progress utility for working with Games for Windows - LIVE.
 
 This is incomplete. There will be bugs.
 
@@ -10,33 +10,34 @@ This is incomplete. There will be bugs.
 * On Windows 7 when fully up-to-date, it should be included.
 * On Windows XP and Vista, you will need to install [.NET Framework 3.5 SP1](https://dotnet.microsoft.com/en-us/download/dotnet-framework/net35-sp1) manually.
 
+## [Downloads](https://github.com/InvoxiPlayGames/GfWLUtility/releases)
+
+It is recommended that you have the latest Windows Updates installed (if neccessary, use [Legacy Update](https://legacyupdate.net)!)
+
 ## Current Features:
 
-- View saved product keys
-- View some profile metadata (not everything, see TODO)
-- View some game information (not everything, see TODO)
+- Install the latest or mostly-latest versions of GfWL components
+    - Games for Windows - LIVE Runtime (3.5.95, latest)
+	- Latest Games for Windows Marketplace Client (3.5.67.0, latest)
+	- Windows Live ID Sign-In Assistant (6.500.3165.0, *mostly latest*, on Windows XP, Vista and 7)
+- View and export saved product keys
+- View profile/gamertag metadata (XUID, email)
+- View game information
 - Create a backup of all GfWL data including product keys and config sectors
 - Adding/removing GfWL domains from hosts for speedups, or to block LIVE
-- Install the latest or mostly-latest versions of GfWL components
-    - Xlive Runtime (3.5.92, *mildly outdated*)
-	- Latest Games for Windows Marketplace Client (3.5.67.0, latest)
-	- Windows Live ID Sign-In Assistant (6.500.3165.0, latest, on Windows XP, Vista and 7)
 
 ## TODO
 
 Ordered roughly in order of what would be best to do first
 
-- CAB extractor for installing 3.5.95.0 runtime
-- Verify size/checksums after downloading
-- Figure out AES-CBC encryption key (used by XeKeysUnObfuscate) for profile metadata
-    - I do not think this is the Xbox 360 Roamable Obfuscation Key but there is a small chance it is
+- Support data importing from the data backups
 - Error handling everywhere
-- Parsing for getting the game name and icon
+- Parsing for getting the game name and icon from GPD files
 - Ability to manage/clear per-game configs
 - Downloading from other mirrors if a file is unavailable
-- Support data importing from the data backups
 - Other useful stuff
-    - Key/PCID trick?
+- Figure out AES encryption (used by XeKeysUnObfuscate) for profile metadata
+    - Currently, a Title Update for Shadowrun is used alongside a sideloaded DLL to dump profile metadata.
 
 ## Shoutouts
 

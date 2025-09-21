@@ -39,22 +39,23 @@
             this.pcidLabel = new System.Windows.Forms.Label();
             this.marketplaceGroup = new System.Windows.Forms.GroupBox();
             this.manageMarketplaceButton = new System.Windows.Forms.Button();
-            this.marketplaceLogoPicture = new System.Windows.Forms.PictureBox();
             this.marketplaceInstallLabel = new System.Windows.Forms.Label();
             this.marketplaceVersionLabel = new System.Windows.Forms.Label();
             this.wlidGroup = new System.Windows.Forms.GroupBox();
-            this.wlidLogoPicture = new System.Windows.Forms.PictureBox();
             this.wlidInstallLabel = new System.Windows.Forms.Label();
             this.wlidInfoLabel = new System.Windows.Forms.Label();
             this.runtimeGroup = new System.Windows.Forms.GroupBox();
             this.manageRuntimeButton = new System.Windows.Forms.Button();
-            this.gfwlLogoPicture = new System.Windows.Forms.PictureBox();
             this.runtimeInstallLabel = new System.Windows.Forms.Label();
             this.runtimeVersionLabel = new System.Windows.Forms.Label();
             this.accountsTab = new System.Windows.Forms.TabPage();
+            this.refreshProfileInfoButton = new System.Windows.Forms.Button();
+            this.showMsaCheck = new System.Windows.Forms.CheckBox();
+            this.msaLabel = new System.Windows.Forms.Label();
+            this.msaEmailBox = new System.Windows.Forms.TextBox();
+            this.pnetCheck = new System.Windows.Forms.CheckBox();
             this.onlineXuidLabel = new System.Windows.Forms.Label();
             this.onlineXuidBox = new System.Windows.Forms.TextBox();
-            this.accountGamerpic = new System.Windows.Forms.PictureBox();
             this.accountLiveCheck = new System.Windows.Forms.CheckBox();
             this.accountXuidBox = new System.Windows.Forms.TextBox();
             this.accountNameBox = new System.Windows.Forms.TextBox();
@@ -63,8 +64,6 @@
             this.accountsListBox = new System.Windows.Forms.ListBox();
             this.gamesTab = new System.Windows.Forms.TabPage();
             this.titleIDFormattedLabel = new System.Windows.Forms.Label();
-            this.titleIconPicture = new System.Windows.Forms.PictureBox();
-            this.titleClearConfigLink = new System.Windows.Forms.LinkLabel();
             this.titleShowKeyCheck = new System.Windows.Forms.CheckBox();
             this.titleKeyLabel = new System.Windows.Forms.Label();
             this.titleProductKeyBox = new System.Windows.Forms.TextBox();
@@ -74,6 +73,10 @@
             this.titleNameLabel = new System.Windows.Forms.Label();
             this.gameListBox = new System.Windows.Forms.ListBox();
             this.utilitiesTab = new System.Windows.Forms.TabPage();
+            this.utilityGroup = new System.Windows.Forms.GroupBox();
+            this.viewCacheLink = new System.Windows.Forms.LinkLabel();
+            this.clearCacheInfoLabel = new System.Windows.Forms.Label();
+            this.clearCacheButton = new System.Windows.Forms.Button();
             this.connBlockGroup = new System.Windows.Forms.GroupBox();
             this.blockLiveInfoLabel = new System.Windows.Forms.Label();
             this.blockServicesInfoLabel = new System.Windows.Forms.Label();
@@ -84,6 +87,11 @@
             this.label1 = new System.Windows.Forms.Label();
             this.githubLinkLabel = new System.Windows.Forms.LinkLabel();
             this.appVersionLabel = new System.Windows.Forms.Label();
+            this.marketplaceLogoPicture = new System.Windows.Forms.PictureBox();
+            this.wlidLogoPicture = new System.Windows.Forms.PictureBox();
+            this.gfwlLogoPicture = new System.Windows.Forms.PictureBox();
+            this.accountGamerpic = new System.Windows.Forms.PictureBox();
+            this.titleIconPicture = new System.Windows.Forms.PictureBox();
             this.installMarketplaceButton = new GfWLUtility.ElevatedButton();
             this.installWLIDButton = new GfWLUtility.ElevatedButton();
             this.installRuntimeButton = new GfWLUtility.ElevatedButton();
@@ -93,18 +101,19 @@
             this.runtimeTab.SuspendLayout();
             this.systemInfoGroup.SuspendLayout();
             this.marketplaceGroup.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.marketplaceLogoPicture)).BeginInit();
             this.wlidGroup.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.wlidLogoPicture)).BeginInit();
             this.runtimeGroup.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.gfwlLogoPicture)).BeginInit();
             this.accountsTab.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.accountGamerpic)).BeginInit();
             this.gamesTab.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.titleIconPicture)).BeginInit();
             this.utilitiesTab.SuspendLayout();
+            this.utilityGroup.SuspendLayout();
             this.connBlockGroup.SuspendLayout();
             this.dataExportGroup.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.marketplaceLogoPicture)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.wlidLogoPicture)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gfwlLogoPicture)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.accountGamerpic)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.titleIconPicture)).BeginInit();
             this.SuspendLayout();
             // 
             // mainTabControl
@@ -222,15 +231,6 @@
             this.manageMarketplaceButton.UseVisualStyleBackColor = true;
             this.manageMarketplaceButton.Visible = false;
             // 
-            // marketplaceLogoPicture
-            // 
-            this.marketplaceLogoPicture.Image = global::GfWLUtility.Properties.Resources.GfWLUnknown;
-            this.marketplaceLogoPicture.Location = new System.Drawing.Point(6, 19);
-            this.marketplaceLogoPicture.Name = "marketplaceLogoPicture";
-            this.marketplaceLogoPicture.Size = new System.Drawing.Size(48, 48);
-            this.marketplaceLogoPicture.TabIndex = 3;
-            this.marketplaceLogoPicture.TabStop = false;
-            // 
             // marketplaceInstallLabel
             // 
             this.marketplaceInstallLabel.AutoSize = true;
@@ -261,15 +261,6 @@
             this.wlidGroup.TabIndex = 11;
             this.wlidGroup.TabStop = false;
             this.wlidGroup.Text = "Windows Live ID assistant";
-            // 
-            // wlidLogoPicture
-            // 
-            this.wlidLogoPicture.Image = global::GfWLUtility.Properties.Resources.WLIDUnknown;
-            this.wlidLogoPicture.Location = new System.Drawing.Point(6, 19);
-            this.wlidLogoPicture.Name = "wlidLogoPicture";
-            this.wlidLogoPicture.Size = new System.Drawing.Size(48, 48);
-            this.wlidLogoPicture.TabIndex = 6;
-            this.wlidLogoPicture.TabStop = false;
             // 
             // wlidInstallLabel
             // 
@@ -313,15 +304,6 @@
             this.manageRuntimeButton.UseVisualStyleBackColor = true;
             this.manageRuntimeButton.Visible = false;
             // 
-            // gfwlLogoPicture
-            // 
-            this.gfwlLogoPicture.Image = global::GfWLUtility.Properties.Resources.GfWLUnknown;
-            this.gfwlLogoPicture.Location = new System.Drawing.Point(6, 19);
-            this.gfwlLogoPicture.Name = "gfwlLogoPicture";
-            this.gfwlLogoPicture.Size = new System.Drawing.Size(48, 48);
-            this.gfwlLogoPicture.TabIndex = 3;
-            this.gfwlLogoPicture.TabStop = false;
-            // 
             // runtimeInstallLabel
             // 
             this.runtimeInstallLabel.AutoSize = true;
@@ -342,14 +324,19 @@
             // 
             // accountsTab
             // 
+            this.accountsTab.Controls.Add(this.refreshProfileInfoButton);
+            this.accountsTab.Controls.Add(this.showMsaCheck);
+            this.accountsTab.Controls.Add(this.msaLabel);
+            this.accountsTab.Controls.Add(this.msaEmailBox);
+            this.accountsTab.Controls.Add(this.pnetCheck);
             this.accountsTab.Controls.Add(this.onlineXuidLabel);
             this.accountsTab.Controls.Add(this.onlineXuidBox);
-            this.accountsTab.Controls.Add(this.accountGamerpic);
             this.accountsTab.Controls.Add(this.accountLiveCheck);
             this.accountsTab.Controls.Add(this.accountXuidBox);
             this.accountsTab.Controls.Add(this.accountNameBox);
             this.accountsTab.Controls.Add(this.accountXuidLabel);
             this.accountsTab.Controls.Add(this.accountNameLabel);
+            this.accountsTab.Controls.Add(this.accountGamerpic);
             this.accountsTab.Controls.Add(this.accountsListBox);
             this.accountsTab.Location = new System.Drawing.Point(4, 22);
             this.accountsTab.Name = "accountsTab";
@@ -358,6 +345,60 @@
             this.accountsTab.TabIndex = 1;
             this.accountsTab.Text = "Profiles";
             this.accountsTab.UseVisualStyleBackColor = true;
+            // 
+            // refreshProfileInfoButton
+            // 
+            this.refreshProfileInfoButton.Location = new System.Drawing.Point(6, 195);
+            this.refreshProfileInfoButton.Name = "refreshProfileInfoButton";
+            this.refreshProfileInfoButton.Size = new System.Drawing.Size(183, 23);
+            this.refreshProfileInfoButton.TabIndex = 23;
+            this.refreshProfileInfoButton.Text = "Refresh Full Profile Info...";
+            this.refreshProfileInfoButton.UseVisualStyleBackColor = true;
+            this.refreshProfileInfoButton.Click += new System.EventHandler(this.refreshProfileInfoButton_Click);
+            // 
+            // showMsaCheck
+            // 
+            this.showMsaCheck.AutoSize = true;
+            this.showMsaCheck.Location = new System.Drawing.Point(341, 107);
+            this.showMsaCheck.Name = "showMsaCheck";
+            this.showMsaCheck.Size = new System.Drawing.Size(99, 17);
+            this.showMsaCheck.TabIndex = 22;
+            this.showMsaCheck.Text = "Show full e-mail";
+            this.showMsaCheck.UseVisualStyleBackColor = true;
+            this.showMsaCheck.Visible = false;
+            this.showMsaCheck.CheckedChanged += new System.EventHandler(this.showMsaCheck_CheckedChanged);
+            // 
+            // msaLabel
+            // 
+            this.msaLabel.AutoSize = true;
+            this.msaLabel.Location = new System.Drawing.Point(194, 108);
+            this.msaLabel.Name = "msaLabel";
+            this.msaLabel.Size = new System.Drawing.Size(91, 13);
+            this.msaLabel.TabIndex = 21;
+            this.msaLabel.Text = "Windows Live ID:";
+            this.msaLabel.Visible = false;
+            // 
+            // msaEmailBox
+            // 
+            this.msaEmailBox.Location = new System.Drawing.Point(196, 124);
+            this.msaEmailBox.Name = "msaEmailBox";
+            this.msaEmailBox.ReadOnly = true;
+            this.msaEmailBox.Size = new System.Drawing.Size(242, 20);
+            this.msaEmailBox.TabIndex = 20;
+            this.msaEmailBox.Text = "wwwwwwwwwwwwwwwwww@wwwwwww.www";
+            this.msaEmailBox.Visible = false;
+            // 
+            // pnetCheck
+            // 
+            this.pnetCheck.AutoSize = true;
+            this.pnetCheck.Enabled = false;
+            this.pnetCheck.Location = new System.Drawing.Point(312, 58);
+            this.pnetCheck.Name = "pnetCheck";
+            this.pnetCheck.Size = new System.Drawing.Size(55, 17);
+            this.pnetCheck.TabIndex = 19;
+            this.pnetCheck.Text = "PNET";
+            this.pnetCheck.UseVisualStyleBackColor = true;
+            this.pnetCheck.Visible = false;
             // 
             // onlineXuidLabel
             // 
@@ -380,14 +421,6 @@
             this.onlineXuidBox.Text = "DEADBEEFDEADBEEF";
             this.onlineXuidBox.Visible = false;
             // 
-            // accountGamerpic
-            // 
-            this.accountGamerpic.Location = new System.Drawing.Point(376, 58);
-            this.accountGamerpic.Name = "accountGamerpic";
-            this.accountGamerpic.Size = new System.Drawing.Size(64, 64);
-            this.accountGamerpic.TabIndex = 16;
-            this.accountGamerpic.TabStop = false;
-            // 
             // accountLiveCheck
             // 
             this.accountLiveCheck.AutoSize = true;
@@ -398,7 +431,6 @@
             this.accountLiveCheck.TabIndex = 15;
             this.accountLiveCheck.Text = "Xbox LIVE Profile";
             this.accountLiveCheck.UseVisualStyleBackColor = true;
-            this.accountLiveCheck.Visible = false;
             // 
             // accountXuidBox
             // 
@@ -406,12 +438,13 @@
             this.accountXuidBox.Location = new System.Drawing.Point(237, 32);
             this.accountXuidBox.Name = "accountXuidBox";
             this.accountXuidBox.ReadOnly = true;
-            this.accountXuidBox.Size = new System.Drawing.Size(203, 20);
+            this.accountXuidBox.Size = new System.Drawing.Size(130, 20);
             this.accountXuidBox.TabIndex = 14;
             this.accountXuidBox.Text = "DEADBEEFDEADBEEF";
             // 
             // accountNameBox
             // 
+            this.accountNameBox.Enabled = false;
             this.accountNameBox.Location = new System.Drawing.Point(257, 6);
             this.accountNameBox.Name = "accountNameBox";
             this.accountNameBox.ReadOnly = true;
@@ -442,15 +475,13 @@
             this.accountsListBox.FormattingEnabled = true;
             this.accountsListBox.Location = new System.Drawing.Point(6, 6);
             this.accountsListBox.Name = "accountsListBox";
-            this.accountsListBox.Size = new System.Drawing.Size(183, 212);
+            this.accountsListBox.Size = new System.Drawing.Size(183, 186);
             this.accountsListBox.TabIndex = 10;
             this.accountsListBox.SelectedIndexChanged += new System.EventHandler(this.accountsListBox_SelectedIndexChanged);
             // 
             // gamesTab
             // 
             this.gamesTab.Controls.Add(this.titleIDFormattedLabel);
-            this.gamesTab.Controls.Add(this.titleIconPicture);
-            this.gamesTab.Controls.Add(this.titleClearConfigLink);
             this.gamesTab.Controls.Add(this.titleShowKeyCheck);
             this.gamesTab.Controls.Add(this.titleKeyLabel);
             this.gamesTab.Controls.Add(this.titleProductKeyBox);
@@ -458,6 +489,7 @@
             this.gamesTab.Controls.Add(this.titleNameBox);
             this.gamesTab.Controls.Add(this.titleIDLabel);
             this.gamesTab.Controls.Add(this.titleNameLabel);
+            this.gamesTab.Controls.Add(this.titleIconPicture);
             this.gamesTab.Controls.Add(this.gameListBox);
             this.gamesTab.Location = new System.Drawing.Point(4, 22);
             this.gamesTab.Name = "gamesTab";
@@ -475,25 +507,6 @@
             this.titleIDFormattedLabel.Size = new System.Drawing.Size(62, 13);
             this.titleIDFormattedLabel.TabIndex = 18;
             this.titleIDFormattedLabel.Text = "(WW-9999)";
-            // 
-            // titleIconPicture
-            // 
-            this.titleIconPicture.Location = new System.Drawing.Point(376, 58);
-            this.titleIconPicture.Name = "titleIconPicture";
-            this.titleIconPicture.Size = new System.Drawing.Size(64, 64);
-            this.titleIconPicture.TabIndex = 17;
-            this.titleIconPicture.TabStop = false;
-            // 
-            // titleClearConfigLink
-            // 
-            this.titleClearConfigLink.AutoSize = true;
-            this.titleClearConfigLink.Location = new System.Drawing.Point(394, 35);
-            this.titleClearConfigLink.Name = "titleClearConfigLink";
-            this.titleClearConfigLink.Size = new System.Drawing.Size(46, 13);
-            this.titleClearConfigLink.TabIndex = 9;
-            this.titleClearConfigLink.TabStop = true;
-            this.titleClearConfigLink.Text = "Config...";
-            this.titleClearConfigLink.Visible = false;
             // 
             // titleShowKeyCheck
             // 
@@ -573,6 +586,7 @@
             // 
             // utilitiesTab
             // 
+            this.utilitiesTab.Controls.Add(this.utilityGroup);
             this.utilitiesTab.Controls.Add(this.connBlockGroup);
             this.utilitiesTab.Controls.Add(this.dataExportGroup);
             this.utilitiesTab.Location = new System.Drawing.Point(4, 22);
@@ -582,6 +596,48 @@
             this.utilitiesTab.TabIndex = 5;
             this.utilitiesTab.Text = "Utilities";
             this.utilitiesTab.UseVisualStyleBackColor = true;
+            // 
+            // utilityGroup
+            // 
+            this.utilityGroup.Controls.Add(this.viewCacheLink);
+            this.utilityGroup.Controls.Add(this.clearCacheInfoLabel);
+            this.utilityGroup.Controls.Add(this.clearCacheButton);
+            this.utilityGroup.Location = new System.Drawing.Point(6, 154);
+            this.utilityGroup.Name = "utilityGroup";
+            this.utilityGroup.Size = new System.Drawing.Size(434, 64);
+            this.utilityGroup.TabIndex = 5;
+            this.utilityGroup.TabStop = false;
+            this.utilityGroup.Text = "GfWL Utility";
+            // 
+            // viewCacheLink
+            // 
+            this.viewCacheLink.AutoSize = true;
+            this.viewCacheLink.Location = new System.Drawing.Point(136, 37);
+            this.viewCacheLink.Name = "viewCacheLink";
+            this.viewCacheLink.Size = new System.Drawing.Size(85, 13);
+            this.viewCacheLink.TabIndex = 2;
+            this.viewCacheLink.TabStop = true;
+            this.viewCacheLink.Text = "Browse Cache...";
+            this.viewCacheLink.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.viewCacheLink_LinkClicked);
+            // 
+            // clearCacheInfoLabel
+            // 
+            this.clearCacheInfoLabel.AutoSize = true;
+            this.clearCacheInfoLabel.Location = new System.Drawing.Point(136, 24);
+            this.clearCacheInfoLabel.Name = "clearCacheInfoLabel";
+            this.clearCacheInfoLabel.Size = new System.Drawing.Size(224, 13);
+            this.clearCacheInfoLabel.TabIndex = 1;
+            this.clearCacheInfoLabel.Text = "Clears GfWL Utility\'s download and file cache.";
+            // 
+            // clearCacheButton
+            // 
+            this.clearCacheButton.Location = new System.Drawing.Point(6, 19);
+            this.clearCacheButton.Name = "clearCacheButton";
+            this.clearCacheButton.Size = new System.Drawing.Size(124, 23);
+            this.clearCacheButton.TabIndex = 0;
+            this.clearCacheButton.Text = "Clear Cache";
+            this.clearCacheButton.UseVisualStyleBackColor = true;
+            this.clearCacheButton.Click += new System.EventHandler(this.clearCacheButton_Click);
             // 
             // connBlockGroup
             // 
@@ -678,11 +734,54 @@
             // appVersionLabel
             // 
             this.appVersionLabel.AutoSize = true;
-            this.appVersionLabel.Location = new System.Drawing.Point(359, 280);
+            this.appVersionLabel.Location = new System.Drawing.Point(365, 280);
             this.appVersionLabel.Name = "appVersionLabel";
-            this.appVersionLabel.Size = new System.Drawing.Size(107, 13);
+            this.appVersionLabel.Size = new System.Drawing.Size(101, 13);
             this.appVersionLabel.TabIndex = 3;
-            this.appVersionLabel.Text = "version 1.0.0.0-beta1";
+            this.appVersionLabel.Text = "version 1.1.0.0-beta";
+            // 
+            // marketplaceLogoPicture
+            // 
+            this.marketplaceLogoPicture.Image = global::GfWLUtility.Properties.Resources.GfWLUnknown;
+            this.marketplaceLogoPicture.Location = new System.Drawing.Point(6, 19);
+            this.marketplaceLogoPicture.Name = "marketplaceLogoPicture";
+            this.marketplaceLogoPicture.Size = new System.Drawing.Size(48, 48);
+            this.marketplaceLogoPicture.TabIndex = 3;
+            this.marketplaceLogoPicture.TabStop = false;
+            // 
+            // wlidLogoPicture
+            // 
+            this.wlidLogoPicture.Image = global::GfWLUtility.Properties.Resources.WLIDUnknown;
+            this.wlidLogoPicture.Location = new System.Drawing.Point(6, 19);
+            this.wlidLogoPicture.Name = "wlidLogoPicture";
+            this.wlidLogoPicture.Size = new System.Drawing.Size(48, 48);
+            this.wlidLogoPicture.TabIndex = 6;
+            this.wlidLogoPicture.TabStop = false;
+            // 
+            // gfwlLogoPicture
+            // 
+            this.gfwlLogoPicture.Image = global::GfWLUtility.Properties.Resources.GfWLUnknown;
+            this.gfwlLogoPicture.Location = new System.Drawing.Point(6, 19);
+            this.gfwlLogoPicture.Name = "gfwlLogoPicture";
+            this.gfwlLogoPicture.Size = new System.Drawing.Size(48, 48);
+            this.gfwlLogoPicture.TabIndex = 3;
+            this.gfwlLogoPicture.TabStop = false;
+            // 
+            // accountGamerpic
+            // 
+            this.accountGamerpic.Location = new System.Drawing.Point(376, 32);
+            this.accountGamerpic.Name = "accountGamerpic";
+            this.accountGamerpic.Size = new System.Drawing.Size(64, 64);
+            this.accountGamerpic.TabIndex = 16;
+            this.accountGamerpic.TabStop = false;
+            // 
+            // titleIconPicture
+            // 
+            this.titleIconPicture.Location = new System.Drawing.Point(376, 32);
+            this.titleIconPicture.Name = "titleIconPicture";
+            this.titleIconPicture.Size = new System.Drawing.Size(64, 64);
+            this.titleIconPicture.TabIndex = 17;
+            this.titleIconPicture.TabStop = false;
             // 
             // installMarketplaceButton
             // 
@@ -762,24 +861,26 @@
             this.systemInfoGroup.PerformLayout();
             this.marketplaceGroup.ResumeLayout(false);
             this.marketplaceGroup.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.marketplaceLogoPicture)).EndInit();
             this.wlidGroup.ResumeLayout(false);
             this.wlidGroup.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.wlidLogoPicture)).EndInit();
             this.runtimeGroup.ResumeLayout(false);
             this.runtimeGroup.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.gfwlLogoPicture)).EndInit();
             this.accountsTab.ResumeLayout(false);
             this.accountsTab.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.accountGamerpic)).EndInit();
             this.gamesTab.ResumeLayout(false);
             this.gamesTab.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.titleIconPicture)).EndInit();
             this.utilitiesTab.ResumeLayout(false);
+            this.utilityGroup.ResumeLayout(false);
+            this.utilityGroup.PerformLayout();
             this.connBlockGroup.ResumeLayout(false);
             this.connBlockGroup.PerformLayout();
             this.dataExportGroup.ResumeLayout(false);
             this.dataExportGroup.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.marketplaceLogoPicture)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.wlidLogoPicture)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gfwlLogoPicture)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.accountGamerpic)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.titleIconPicture)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -827,7 +928,6 @@
         private System.Windows.Forms.Label titleIDLabel;
         private System.Windows.Forms.Label titleNameLabel;
         private System.Windows.Forms.ListBox gameListBox;
-        private System.Windows.Forms.LinkLabel titleClearConfigLink;
         private System.Windows.Forms.CheckBox accountLiveCheck;
         private System.Windows.Forms.TextBox accountXuidBox;
         private System.Windows.Forms.TextBox accountNameBox;
@@ -847,6 +947,15 @@
         private System.Windows.Forms.Label titleIDFormattedLabel;
         private System.Windows.Forms.Label onlineXuidLabel;
         private System.Windows.Forms.TextBox onlineXuidBox;
+        private System.Windows.Forms.CheckBox pnetCheck;
+        private System.Windows.Forms.CheckBox showMsaCheck;
+        private System.Windows.Forms.Label msaLabel;
+        private System.Windows.Forms.TextBox msaEmailBox;
+        private System.Windows.Forms.Button refreshProfileInfoButton;
+        private System.Windows.Forms.GroupBox utilityGroup;
+        private System.Windows.Forms.LinkLabel viewCacheLink;
+        private System.Windows.Forms.Label clearCacheInfoLabel;
+        private System.Windows.Forms.Button clearCacheButton;
     }
 }
 

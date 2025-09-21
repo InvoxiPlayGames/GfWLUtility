@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Windows.Forms;
 using Microsoft.Win32;
 
 namespace GfWLUtility
@@ -9,6 +10,7 @@ namespace GfWLUtility
     internal class GfWLRegistry
     {
         private static string xlive_registry_key = "software\\classes\\software\\microsoft\\xlive";
+        private static string msidcrl_registry_key = "software\\microsoft\\identitycrl";
 
         // Returns the current PCID in hex string format, or N/A if not found.
         public static string GetPCID()
@@ -50,6 +52,20 @@ namespace GfWLUtility
             object dashDirValue = gfwlKey.GetValue("DashDir");
             if (dashDirValue != null && gfwlKey.GetValueKind("DashDir") == RegistryValueKind.String)
                 return (string)dashDirValue;
+            else
+                return null;
+        }
+
+        // Returns the path that the Windows Live ID runtime libraries are installed to.
+        public static string GetMsidcrlPath()
+        {
+            RegistryKey msidCrlKey = Registry.LocalMachine.OpenSubKey(msidcrl_registry_key);
+            if (msidCrlKey == null) return null;
+            object targetDirValue = msidCrlKey.GetValue("TargetDir");
+            if (targetDirValue != null &&
+                (msidCrlKey.GetValueKind("TargetDir") == RegistryValueKind.String ||
+                msidCrlKey.GetValueKind("TargetDir") == RegistryValueKind.ExpandString))
+                return (string)targetDirValue;
             else
                 return null;
         }

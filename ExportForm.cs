@@ -64,7 +64,7 @@ namespace GfWLUtility
                 i_title++;
             }
             savedPCInfo.Version = "1";
-            savedPCInfo.CreatedBy = "GfWLUtility-beta1";
+            savedPCInfo.CreatedBy = "GfWLUtility-" + Application.ProductVersion;
             savedPCInfo.CreatedAt = DateTime.Now.ToString();
             System.Xml.Serialization.XmlSerializer x = new System.Xml.Serialization.XmlSerializer(savedPCInfo.GetType());
             x.Serialize(fs, savedPCInfo);

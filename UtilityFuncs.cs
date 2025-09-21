@@ -19,7 +19,19 @@ namespace GfWLUtility
         {
             if (str == null || str.Length < min_length) return str;
             int x_fill = str.Length - start - end;
-            return str.Substring(0, start) + new string('x', x_fill) + str.Substring(str.Length - end, end);
+            return str.Substring(0, start) + new string('\u25CF', x_fill) + str.Substring(str.Length - end, end);
+        }
+
+        public static string CensorEmail(string email)
+        {
+            string[] emailsplit = email.Split('@');
+            if (emailsplit.Length != 2) return email;
+            string[] domainsplit = emailsplit[1].Split('.');
+            if (domainsplit.Length < 2) return email;
+            string finalemail = emailsplit[0][0] + new string('\u25CF', 5) + "@" + domainsplit[0][0] + new string('\u25CF', 5) + "." + domainsplit[1];
+            if (domainsplit.Length > 2)
+                finalemail += '.' + string.Join(".", domainsplit.Skip(2).ToArray());
+            return finalemail;
         }
 
         // https://stackoverflow.com/a/58779
@@ -91,6 +103,12 @@ namespace GfWLUtility
             return Environment.OSVersion.Version.CompareTo(new Version("6.0")) < 0;
         }
 
+        public static bool IsWindowsLegacy()
+        {
+            // are we lower than Windows XP?
+            return Environment.OSVersion.Version.CompareTo(new Version("5.1")) < 0;
+        }
+
         [DllImport("kernel32.dll", SetLastError = true, CallingConvention = CallingConvention.Winapi)]
         [return: MarshalAs(UnmanagedType.Bool)]
         private static extern bool IsWow64Process([In] IntPtr hProcess, [Out] out bool wow64Process);
@@ -105,6 +123,30 @@ namespace GfWLUtility
                     return false;
                 }
                 return retVal;
+            }
+        }
+
+        public static string GetLocalDirectory(string dirname)
+        {
+            return Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\GfWLUtility\\" + dirname + "\\";
+        }
+
+        // https://stackoverflow.com/a/5076491
+        public static T BytesToStructure<T>(byte[] bytes)
+        {
+            int size = Marshal.SizeOf(typeof(T));
+            if (bytes.Length != size)
+                throw new Exception($"Invalid size (got {bytes.Length}, expected {size})");
+
+            IntPtr ptr = Marshal.AllocHGlobal(size);
+            try
+            {
+                Marshal.Copy(bytes, 0, ptr, size);
+                return (T)Marshal.PtrToStructure(ptr, typeof(T));
+            }
+            finally
+            {
+                Marshal.FreeHGlobal(ptr);
             }
         }
     }

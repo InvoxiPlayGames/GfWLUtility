@@ -315,7 +315,7 @@ namespace GfWLUtility
                         string productKey = Encoding.UTF8.GetString(unprotectedBytes);
                         KnownTitles[titleID].ProductKey = productKey;
                         return productKey;
-                    } catch (Exception e)
+                    } catch (Exception)
                     {
                         return null;
                     }
@@ -352,7 +352,7 @@ namespace GfWLUtility
                     {
                         byte[] unprotectedSector = ProtectedData.Unprotect(sector, null, DataProtectionScope.CurrentUser);
                         return unprotectedSector;
-                    } catch (Exception e)
+                    } catch (Exception)
                     {
                         return null;
                     }

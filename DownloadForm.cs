@@ -7,6 +7,7 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Reflection.Emit;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading;
 using System.Windows.Forms;
@@ -17,7 +18,8 @@ namespace GfWLUtility
     {
         DownloadCancelled,
         DownloadSuccess,
-        DownloadFailure
+        DownloadFailure,
+        FileAlreadyExists
     }
 
     public partial class DownloadForm : Form
@@ -58,20 +60,78 @@ namespace GfWLUtility
         void DownloadFileCompleted(object sender, AsyncCompletedEventArgs e)
         {
             this.BeginInvoke((MethodInvoker)delegate {
-                result = DownloadFormResult.DownloadSuccess;
+                result = e.Error == null ? DownloadFormResult.DownloadSuccess : DownloadFormResult.DownloadFailure;
                 Close();
             });
         }
 
+        internal static byte[] GetFileHash(string filename)
+        {
+            FileStream fs = new FileStream(filename, FileMode.Open);
+            byte[] hash = null;
+            using (BufferedStream bs = new BufferedStream(fs))
+            {
+                using (SHA1Managed sha1 = new SHA1Managed())
+                {
+                    hash = sha1.ComputeHash(bs);
+                }
+                bs.Close();
+            }
+            fs.Close();
+            return hash;
+        }
+
+        internal static string FileAlreadyExists(FileInformation fi)
+        {
+            // check if the file exists in the downloads folder with its default filename
+            string filename = UtilityFuncs.GetLocalDirectory("Downloads") + fi.Filename;
+            // TODO: check filesize as well as hash
+            if (File.Exists(filename) && GetFileHash(filename).SequenceEqual(fi.Hash))
+            {
+                return filename;
+            }
+            // check alternative filenames
+            if (fi.AltFilenames != null && fi.AltFilenames.Length >= 1)
+            {
+                foreach(string file in fi.AltFilenames)
+                {
+                    filename = UtilityFuncs.GetLocalDirectory("Downloads") + file;
+                    if (File.Exists(filename) && GetFileHash(filename).SequenceEqual(fi.Hash))
+                    {
+                        return filename;
+                    }
+                }
+            }
+            // null = file doesn't already exist
+            return null;
+        }
+
         internal DownloadFormResult StartFileDownload(FileInformation fi, IWin32Window owner)
         {
-            if (!Directory.Exists(System.IO.Path.GetTempPath() + "\\GfWLUtility"))
-                Directory.CreateDirectory(System.IO.Path.GetTempPath() + "\\GfWLUtility");
-            downloadOutput = System.IO.Path.GetTempPath() + "\\GfWLUtility\\" + fi.Filename;
+            if (!Directory.Exists(UtilityFuncs.GetLocalDirectory("Downloads")))
+                Directory.CreateDirectory(UtilityFuncs.GetLocalDirectory("Downloads"));
+            downloadOutput = UtilityFuncs.GetLocalDirectory("Downloads") + fi.Filename;
             if (File.Exists(downloadOutput))
-                File.Delete(downloadOutput);
+            {
+                // verify the checksum of the existing file
+                if (!GetFileHash(downloadOutput).SequenceEqual(fi.Hash))
+                {
+                    // if the hash isn't the same, delete it and redownload
+                    File.Delete(downloadOutput);
+                }
+                else
+                {
+                    // if it is the same, we don't need to redownload
+                    return DownloadFormResult.FileAlreadyExists;
+                }
+            }
 
             fileInformation = fi;
+
+            // if there is no download URLs, the download should immediately fail
+            if (fi.DownloadURLs == null || fi.DownloadURLs.Length < 1)
+                return DownloadFormResult.DownloadFailure;
+
             // TODO: If a download fails on one URL, try another
             downloadUrl = fi.DownloadURLs.FirstOrDefault();
             currentDownloadURL.Text = downloadUrl;

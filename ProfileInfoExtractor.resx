@@ -117,23 +117,4 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="GfWLCheck" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\GfWLUtilityCheck.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="GfWLOld" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\GfWLUtilityOld.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="GfWLUnknown" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\GfWLUtilityUnknown.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="gfwlxekeys" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\gfwlxekeys.dll;System.Byte[], mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="WLIDOld" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\WLIDOld.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="WLIDUnknown" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\WLIDUnknown.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
 </root>

@@ -29,6 +29,11 @@ namespace GfWLUtility
             versionText.Text = GfWLRegistry.GetVersion();
         }
 
+        public string CurrentTabName()
+        {
+            return mainTabControl.SelectedTab.Text;
+        }
+
         private bool ConfirmIsAdmin()
         {
             if (!Program.Elevated)
@@ -40,7 +45,7 @@ namespace GfWLUtility
                         "Permission Required", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
                     if (r == DialogResult.Yes)
                     {
-                        Program.RelaunchAsAdmin();
+                        Program.RelaunchAsAdmin($"--tab {CurrentTabName()}");
                         return false;
                     } else
                     {
@@ -126,17 +131,27 @@ namespace GfWLUtility
 
         private void LoadWLIDGroup()
         {
-            // Windows 8+ seems to have a forwarder from msidcrl40 to wlidcli
-            // wlidcli has the icon assets so we use that
+            bool is_old = false;
+            // wlidcli has the icon assets so we use that first
             string wlid_path = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.System), "wlidcli.dll");
-            // sometimes msidcrl40.dll will end up at "C:\Program Files\Common Files\microsoft shared\Windows Live"
-            if (!File.Exists(wlid_path))
-                wlid_path = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.CommonProgramFiles), @"microsoft shared\Windows Live\msidcrl40.dll");
+            // check the Windows Live ID assistant install path
+            if (!File.Exists(wlid_path) && GfWLRegistry.GetMsidcrlPath() != null)
+            {
+                wlid_path = Path.Combine(GfWLRegistry.GetMsidcrlPath(), "wlidcli.dll");
+                // msidcrl40 gets installed as part of the Windows Live ID runtime but also is included in Windows 8+'s system32 folder
+                if (!File.Exists(wlid_path))
+                    wlid_path = Path.Combine(GfWLRegistry.GetMsidcrlPath(), "msidcrl40.dll");
+            }
+            // check system32 in case it exists there
             if (!File.Exists(wlid_path))
                 wlid_path = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.System), "msidcrl40.dll");
             // hack to get older versions to show up as existing but old
             if (!File.Exists(wlid_path))
+            {
                 wlid_path = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.System), "msidcrl30.dll");
+                is_old = true;
+            }
+            // final check - do we have a valid path
             if (File.Exists(wlid_path))
             {
                 Version wlid_version = UtilityFuncs.GetProductVersion(wlid_path);
@@ -154,7 +169,8 @@ namespace GfWLUtility
                     wlidLogoPicture.Image = Resources.WLIDOld;
 
                 // hardcoded latest version. sucks?
-                if (UtilityFuncs.IsWindowsModern() || wlid_version.CompareTo(new Version("6.500.3165.0")) >= 0)
+                // technically this isn't even the latest version - newer versions do in fact exist
+                if (UtilityFuncs.IsWindowsModern() || (!is_old && wlid_version.CompareTo(new Version("6.500.3165.0")) >= 0))
                 {
                     installWLIDButton.Enabled = false;
                     installWLIDButton.Text = UtilityFuncs.IsWindowsModern() ? "Included in Windows" : "Up to date!";
@@ -210,12 +226,10 @@ namespace GfWLUtility
             if (gameListBox.SelectedIndex == -1)
             {
                 titleShowKeyCheck.Enabled = false;
-                titleClearConfigLink.Enabled = false;
                 return;
             }
 
             titleShowKeyCheck.Enabled = true;
-            titleClearConfigLink.Enabled = true;
 
             KnownTitle selected = (KnownTitle)gameListBox.SelectedItem;
             titleNameBox.Text = selected.Name;
@@ -228,7 +242,18 @@ namespace GfWLUtility
         private void RefreshProfilePage()
         {
             accountNameBox.Text = string.Empty;
+            accountNameBox.Enabled = true;
             accountXuidBox.Text = string.Empty;
+            accountGamerpic.ImageLocation = string.Empty;
+
+            accountLiveCheck.Visible = false;
+            onlineXuidBox.Visible = false;
+            onlineXuidLabel.Visible = false;
+            msaLabel.Visible = false;
+            msaEmailBox.Visible = false;
+            showMsaCheck.Visible = false;
+            pnetCheck.Visible = false;
+            showMsaCheck.Checked = false;
 
             if (accountsListBox.SelectedIndex == -1)
             {
@@ -236,10 +261,31 @@ namespace GfWLUtility
             }
 
             KnownUser selected = (KnownUser)accountsListBox.SelectedItem;
-            accountNameBox.Text = selected.Gamertag;
-            accountXuidBox.Text = selected.XUID.ToString("X8");
+            accountNameBox.Text = selected.HasFullInformation ? selected.Gamertag : "Missing Profile Info";
+            accountNameBox.Enabled = selected.HasFullInformation;
+            accountLiveCheck.Visible = selected.HasFullInformation;
+            accountXuidBox.Text = selected.XUID.ToString("X16");
             accountGamerpic.ImageLocation = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
                     $"Microsoft\\Xlive\\Content\\{selected.XUID:X8}\\FFFE07D1\\00010000\\{selected.XUID:X8}_MountPt\\tile_64.png");
+
+            if (selected.HasFullInformation)
+            {
+                accountLiveCheck.Checked = selected.LiveEnabled;
+                if (selected.LiveEnabled)
+                {
+                    onlineXuidBox.Visible = true;
+                    onlineXuidLabel.Visible = true;
+                    msaLabel.Visible = true;
+                    msaEmailBox.Visible = true;
+                    showMsaCheck.Visible = true;
+                    pnetCheck.Visible = true;
+
+                    pnetCheck.Visible = selected.Pnet;
+                    pnetCheck.Checked = selected.Pnet;
+                    msaEmailBox.Text = UtilityFuncs.CensorEmail(selected.MsaEmail);
+                    onlineXuidBox.Text = selected.OnlineXUID.ToString("X16");
+                }
+            }
         }
 
         private void SearchForTitles()
@@ -283,10 +329,25 @@ namespace GfWLUtility
                     if (!ulong.TryParse(xuid, NumberStyles.HexNumber,
                         CultureInfo.CurrentCulture, out xuidInt))
                         continue;
-                    // make sure it's a valid xuid
+                    // make sure it's a valid local xuid
                     if ((xuidInt & 0xE000000000000000) != 0xE000000000000000)
                         continue;
                     UserManager.FoundUserExists(xuidInt);
+                    // check the account cache
+                    // TODO: move this into code outside of the main form
+                    string accCacheFilename = UtilityFuncs.GetLocalDirectory("ProfileCache") + xuidInt.ToString("x16") + ".bin";
+                    if (File.Exists(accCacheFilename))
+                    {
+                        byte[] accBytes = File.ReadAllBytes(accCacheFilename);
+                        XamAccount account = UtilityFuncs.BytesToStructure<XamAccount>(accBytes);
+                        UserManager.FoundUserGamertag(xuidInt, account.Gamertag);
+                        if ((account.Flags1 & 0x20000000) == 0x20000000)
+                            UserManager.KnownUsers[xuidInt].LiveEnabled = true;
+                        UserManager.KnownUsers[xuidInt].OnlineXUID = account.OnlineXUID;
+                        UserManager.KnownUsers[xuidInt].Pnet = account.OnlineServiceID == 0x54524150;
+                        UserManager.KnownUsers[xuidInt].MsaEmail = account.PassportEmail;
+                        UserManager.KnownUsers[xuidInt].HasFullInformation = true;
+                    }
                 }
             }
 
@@ -301,15 +362,44 @@ namespace GfWLUtility
 
         private void MainWindow_Load(object sender, EventArgs e)
         {
-            MessageBox.Show(@"This application is in a very early beta!
-A lot of stuff won't work.
-PRs welcome on GitHub!", "Notice", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-
+            // detect Windows older than 2000 and bail out
+            if (UtilityFuncs.IsWindowsLegacy())
+            {
+                MessageBox.Show("Games for Windows - LIVE and GfWL Utility requires Windows XP or later.",
+                        "OS Unsupported", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                Application.Exit();
+                return;
+            }
+            // load information
             LoadAllGroups();
             SearchForProfiles();
             SearchForTitles();
             if (Program.Elevated && !UtilityFuncs.IsWindowsXP())
                 Text += " (Administrator)";
+            // check if we're supposed to be launching a specific tab
+            if (Program.Arguments.Contains("--tab"))
+            {
+                // gross
+                string targetTab = null;
+                // find the tab argument and get the argument value
+                for(int i = 0; i < Program.Arguments.Length; i++)
+                {
+                    if (Program.Arguments[i] == "--tab" && Program.Arguments.Length >= (i + 2))
+                    {
+                        targetTab = Program.Arguments[i + 1];
+                        break;
+                    }
+                }
+                // if we've got a value find the tab itself
+                if (targetTab != null)
+                {
+                    foreach(TabPage tab in mainTabControl.TabPages)
+                    {
+                        if (tab.Text == targetTab)
+                            mainTabControl.SelectedTab = tab;
+                    }
+                }
+            }
         }
 
         private void showPCIDCheckbox_CheckedChanged(object sender, EventArgs e)
@@ -384,7 +474,7 @@ PRs welcome on GitHub!", "Notice", MessageBoxButtons.OK, MessageBoxIcon.Warning)
         private void dataExportButton_Click(object sender, EventArgs e)
         {
             ExportForm form = new ExportForm();
-            form.ShowDialog();
+            form.ShowDialog(this);
         }
 
         private void dataImportButton_Click(object sender, EventArgs e)
@@ -394,54 +484,68 @@ PRs welcome on GitHub!", "Notice", MessageBoxButtons.OK, MessageBoxIcon.Warning)
 
         private void installRuntimeButton_Click(object sender, EventArgs e)
         {
-            /*
-            DownloadForm form = new DownloadForm();
-            DownloadFormResult fr = form.StartFileDownload(StaticFileInformation.titleupdate_3_5_95_cab, this);
-            if (fr == DownloadFormResult.DownloadCancelled)
+            // check if we have the latest redistributable msi downloaded
+            string msiPath = DownloadForm.FileAlreadyExists(StaticFileInformation.xliveupdate_3_5_95_msi);
+            if (msiPath == null || !File.Exists(msiPath))
             {
-                MessageBox.Show("The download was cancelled.", "GfWL Utility", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                return;
-            } else if (fr == DownloadFormResult.DownloadFailure)
-            {
-                MessageBox.Show("The download failed.", "GfWL Utility", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
+                // download the cabinet file
+                DownloadForm form = new DownloadForm();
+                DownloadFormResult fr = form.StartFileDownload(StaticFileInformation.titleupdate_3_5_95_cab, this);
+                if (fr == DownloadFormResult.DownloadCancelled)
+                {
+                    MessageBox.Show("The download was cancelled.", "GfWL Utility", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    return;
+                }
+                else if (fr == DownloadFormResult.DownloadFailure)
+                {
+                    MessageBox.Show("The download failed.", "GfWL Utility", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+                string cabPath = form.GetOutputFilePath();
+                if (!File.Exists(cabPath))
+                {
+                    MessageBox.Show("The download worked, but the CAB doesn't exist?!", "GfWL Utility", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+                CabinetExtractor cex = new CabinetExtractor(cabPath, UtilityFuncs.GetLocalDirectory("Downloads"));
+                if (!cex.Extract() || DownloadForm.FileAlreadyExists(StaticFileInformation.xliveupdate_3_5_95_msi) == null)
+                {
+                    MessageBox.Show("Failed to extract the System Update CAB.", "GfWL Utility", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+                // delete the original cab file
+                File.Delete(cabPath);
             }
-            string cabPath = form.GetOutputFilePath();
-            if (!File.Exists(cabPath))
-            {
-                MessageBox.Show("The download worked, but the CAB doesn't exist?!", "GfWL Utility", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }*/
 
-            DialogResult dr = MessageBox.Show(
-                "This will install an older version of the runtime (3.5.92). You will have to update in-game.\n\nContinue?", "GfWL Utility",
-                MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-            if (dr != DialogResult.Yes)
-                return;
-
-            DoMSIDownloadAndInstall(StaticFileInformation.xliveredist_3_5_92_msi);
+            DoMSIDownloadAndInstall(StaticFileInformation.xliveupdate_3_5_95_msi);
             LoadRuntimeInfoGroup();
         }
 
         private void DoMSIDownloadAndInstall(FileInformation fi)
         {
             DownloadForm form = new DownloadForm();
-            DownloadFormResult fr = form.StartFileDownload(fi, this);
-            if (fr == DownloadFormResult.DownloadCancelled)
+            // check if the file already exists in the downloads cache
+            string msiPath = DownloadForm.FileAlreadyExists(fi);
+            if (msiPath == null || !File.Exists(msiPath))
             {
-                MessageBox.Show("The download was cancelled.", "GfWL Utility", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                return;
-            }
-            else if (fr == DownloadFormResult.DownloadFailure)
-            {
-                MessageBox.Show("The download failed.", "GfWL Utility", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
-            string msiPath = form.GetOutputFilePath();
-            if (!File.Exists(msiPath))
-            {
-                MessageBox.Show("The download worked, but the MSI doesn't exist?! Make sure any anti-virus software is not interfering.", "GfWL Utility", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
+                // if it doesn't, download it
+                DownloadFormResult fr = form.StartFileDownload(fi, this);
+                if (fr == DownloadFormResult.DownloadCancelled)
+                {
+                    MessageBox.Show("The download was cancelled.", "GfWL Utility", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    return;
+                }
+                else if (fr == DownloadFormResult.DownloadFailure)
+                {
+                    MessageBox.Show("The download failed.", "GfWL Utility", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+                msiPath = form.GetOutputFilePath();
+                if (!File.Exists(msiPath))
+                {
+                    MessageBox.Show("The download worked, but the MSI doesn't exist?! Make sure any anti-virus software is not interfering.", "GfWL Utility", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
             }
 
             Process p = new Process();
@@ -460,10 +564,52 @@ PRs welcome on GitHub!", "Notice", MessageBoxButtons.OK, MessageBoxIcon.Warning)
 
         private void installWLIDButton_Click(object sender, EventArgs e)
         {
-            DoMSIDownloadAndInstall(StaticFileInformation.wllogin_32_msi);
             if (UtilityFuncs.IsWindows64Bit())
                 DoMSIDownloadAndInstall(StaticFileInformation.wllogin_64_msi);
+            DoMSIDownloadAndInstall(StaticFileInformation.wllogin_32_msi);
             LoadWLIDGroup();
+        }
+
+        private void showMsaCheck_CheckedChanged(object sender, EventArgs e)
+        {
+            KnownUser selected = (KnownUser)accountsListBox.SelectedItem;
+            if (selected == null) return;
+            if (showMsaCheck.Checked)
+                msaEmailBox.Text = selected.MsaEmail;
+            else
+                msaEmailBox.Text = UtilityFuncs.CensorEmail(selected.MsaEmail);
+        }
+
+        private void viewCacheLink_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            if (Directory.Exists(UtilityFuncs.GetLocalDirectory("")))
+                Process.Start(UtilityFuncs.GetLocalDirectory(""));
+            else
+                MessageBox.Show("The cache folder does not exist.", "GfWL Utility", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
+        private void clearCacheButton_Click(object sender, EventArgs e)
+        {
+            if (Directory.Exists(UtilityFuncs.GetLocalDirectory(""))) {
+                try
+                {
+                    Directory.Delete(UtilityFuncs.GetLocalDirectory(""), true);
+                    MessageBox.Show("The cache folder has been cleared!", "GfWL Utility", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                } catch (Exception ex)
+                {
+                    MessageBox.Show($"The cache folder could not be deleted.\n\nError: {ex.Message}", "GfWL Utility", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            else
+                MessageBox.Show("The cache folder does not exist.", "GfWL Utility", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
+        private void refreshProfileInfoButton_Click(object sender, EventArgs e)
+        {
+            ProfileInfoExtractor p = new ProfileInfoExtractor();
+            p.ShowDialog(this);
+            if (p.Success)
+                SearchForProfiles();
         }
     }
 }
