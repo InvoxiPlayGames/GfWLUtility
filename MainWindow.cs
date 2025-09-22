@@ -1,16 +1,10 @@
 ﻿using GfWLUtility.Properties;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Diagnostics;
 using System.Drawing;
 using System.Globalization;
 using System.IO;
 using System.Linq;
-using System.Reflection;
-using System.Runtime.InteropServices;
-using System.Text;
 using System.Windows.Forms;
 
 namespace GfWLUtility
@@ -333,21 +327,7 @@ namespace GfWLUtility
                     if ((xuidInt & 0xE000000000000000) != 0xE000000000000000)
                         continue;
                     UserManager.FoundUserExists(xuidInt);
-                    // check the account cache
-                    // TODO: move this into code outside of the main form
-                    string accCacheFilename = UtilityFuncs.GetLocalDirectory("ProfileCache") + xuidInt.ToString("x16") + ".bin";
-                    if (File.Exists(accCacheFilename))
-                    {
-                        byte[] accBytes = File.ReadAllBytes(accCacheFilename);
-                        XamAccount account = UtilityFuncs.BytesToStructure<XamAccount>(accBytes);
-                        UserManager.FoundUserGamertag(xuidInt, account.Gamertag);
-                        if ((account.Flags1 & 0x20000000) == 0x20000000)
-                            UserManager.KnownUsers[xuidInt].LiveEnabled = true;
-                        UserManager.KnownUsers[xuidInt].OnlineXUID = account.OnlineXUID;
-                        UserManager.KnownUsers[xuidInt].Pnet = account.OnlineServiceID == 0x54524150;
-                        UserManager.KnownUsers[xuidInt].MsaEmail = account.PassportEmail;
-                        UserManager.KnownUsers[xuidInt].HasFullInformation = true;
-                    }
+                    UserManager.PopulateUserInformation(xuidInt, $"{subdir}\\FFFE07D1\\00010000\\{xuidInt:X16}_MountPt\\Account");
                 }
             }
 

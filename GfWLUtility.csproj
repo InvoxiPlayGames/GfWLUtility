@@ -94,6 +94,7 @@
     <Compile Include="MainWindow.Designer.cs">
       <DependentUpon>MainWindow.cs</DependentUpon>
     </Compile>
+    <Compile Include="PanoramaCrypto.cs" />
     <Compile Include="ProfileInfoExtractor.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -105,6 +106,7 @@
     <Compile Include="TitleManager.cs" />
     <Compile Include="UserManager.cs" />
     <Compile Include="UtilityFuncs.cs" />
+    <Compile Include="XeKeys.cs" />
     <EmbeddedResource Include="DownloadForm.resx">
       <DependentUpon>DownloadForm.cs</DependentUpon>
     </EmbeddedResource>
