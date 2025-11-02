@@ -80,6 +80,7 @@ namespace GfWLUtility
             { 0x45410920, "Mass Effect 2" },
             { 0x45410921, "Dragon Age: Origins" },
             { 0x45410935, "Bulletstorm" },
+            { 0x45410FA0, "MagmaTransfer" }, // rock band mentioned we win
             { 0x45410FA1, "Medal of Honor" },
             { 0x45410FA2, "Need for Speed SHIFT" },
             { 0x45410FA3, "Dead Space 2" },
