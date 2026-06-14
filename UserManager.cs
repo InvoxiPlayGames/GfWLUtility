@@ -106,13 +106,6 @@ namespace GfWLUtility
                 byte[] encBytes = File.ReadAllBytes(accountFile);
                 accBytes = XeKeys.UnObfuscate(encBytes);
             }
-            // otherwise check if we have decrypted profile information in the account cache
-            if (accBytes == null)
-            {
-                string accCacheFilename = UtilityFuncs.GetLocalDirectory("ProfileCache") + xuid.ToString("x16") + ".bin";
-                if (File.Exists(accCacheFilename))
-                    accBytes = File.ReadAllBytes(accCacheFilename);
-            }
             // if we have a byte stream of the right length of a decrypted account file, hooray
             if (accBytes != null && accBytes.Length == 0x17C)
             {

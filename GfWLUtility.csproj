@@ -94,13 +94,8 @@
     <Compile Include="MainWindow.Designer.cs">
       <DependentUpon>MainWindow.cs</DependentUpon>
     </Compile>
+    <Compile Include="ManualAES128.cs" />
     <Compile Include="PanoramaCrypto.cs" />
-    <Compile Include="ProfileInfoExtractor.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="ProfileInfoExtractor.Designer.cs">
-      <DependentUpon>ProfileInfoExtractor.cs</DependentUpon>
-    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TitleManager.cs" />
@@ -115,9 +110,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="MainWindow.resx">
       <DependentUpon>MainWindow.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="ProfileInfoExtractor.resx">
-      <DependentUpon>ProfileInfoExtractor.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -149,7 +141,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="GfWLUtilityLogo.ico" />
-    <None Include="Resources\gfwlxekeys.dll" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

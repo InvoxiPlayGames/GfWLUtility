@@ -11,6 +11,11 @@ namespace GfWLUtility
 {
     internal class UtilityFuncs
     {
+        private static bool _checkedWine = false;
+        private static bool _isWine = false;
+
+        [DllImport("ntdll.dll", CharSet = CharSet.Ansi, EntryPoint = "wine_get_version")]
+        public static extern string wine_get_version();
 
         [DllImport("shell32.dll", BestFitMapping = false, CharSet = CharSet.Auto, EntryPoint = "SHDefExtractIcon")]
         public static extern int SHDefExtractIcon(string pszIconFile, int index, uint uFlags, ref IntPtr phiconLarge, ref IntPtr phiconSmall, uint nIconSize);
@@ -82,6 +87,31 @@ namespace GfWLUtility
             char publisher1 = (char)(titleID >> 24);
             char publisher2 = (char)((titleID >> 16) & 0xFF);
             return publisher1.ToString() + publisher2.ToString() + "-" + gameNum.ToString();
+        }
+
+        public static bool IsWine()
+        {
+            if (!_checkedWine)
+            {
+                try
+                {
+                    string wineVer = wine_get_version();
+                    _isWine = true;
+                }
+                catch (Exception)
+                {
+                    _isWine = false;
+                }
+                _checkedWine = true;
+            }
+            return _isWine;
+        }
+
+        public static string GetProductName(string exe_path)
+        {
+            FileVersionInfo info = FileVersionInfo.GetVersionInfo(exe_path);
+            if (info == null) return null;
+            return info.ProductName;
         }
 
         public static Version GetProductVersion(string exe_path)

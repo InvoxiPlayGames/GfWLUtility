@@ -146,5 +146,18 @@ namespace GfWLUtility
                 0xfd, 0xb3, 0x10, 0xcf, 0x91, 0x94, 0xc4, 0xfd, 0x81, 0x9b, 0x9f, 0x98, 0x97, 0xe9, 0x02, 0x65, 0x05, 0xa9, 0x69, 0x82
             }
         };
+
+        // msidcrl40.dll - the Microsoft IDCRL library version 5.0.819.1 for use under Wine
+        public static FileInformation msidcrl40_5_0_819_1 = new FileInformation()
+        {
+            Filename = "msidcrl40.dll",
+            AltFilenames = new string[] { "SDKCOMPONENTS_PPCRL_MSIDCRL40.DLL.1312FADD_90E2_487F_B4BC_5B3F1469FB3C", "msidcrl67.dll" },
+            DownloadURLs = null, // found in wlsetup.exe 14.0.8117.0416
+            Size = 1141640,
+            Hash = new byte[0x14]
+            {
+                0x5f, 0xfe, 0x5d, 0x55, 0x1a, 0x17, 0xfa, 0x18, 0xd1, 0xd9, 0xbb, 0xf0, 0xd1, 0x73, 0x2c, 0xdd, 0x57, 0xe6, 0xe8, 0x9b
+            }
+        };
     }
 }

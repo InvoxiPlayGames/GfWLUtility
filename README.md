@@ -36,8 +36,6 @@ Ordered roughly in order of what would be best to do first
 - Ability to manage/clear per-game configs
 - Downloading from other mirrors if a file is unavailable
 - Other useful stuff
-- Figure out AES encryption (used by XeKeysUnObfuscate) for profile metadata
-    - Currently, a Title Update for Shadowrun is used alongside a sideloaded DLL to dump profile metadata.
 
 ## Shoutouts
 
@@ -45,3 +43,4 @@ Ordered roughly in order of what would be best to do first
 * [Free60 Wiki](https://free60.org/)
 * [NeKzor's Xlive reversing from Tron Evolution](https://github.com/NeKzor/tem/blob/master/doc/src/reversed/xlive.md)
 * [XLiveLessNess](https://gitlab.com/GlitchyScripts/xlivelessness)
+* [widberg's xlive-research](https://github.com/widberg/xlive-research)

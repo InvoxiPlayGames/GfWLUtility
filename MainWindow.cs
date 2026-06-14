@@ -139,49 +139,92 @@ namespace GfWLUtility
             // check system32 in case it exists there
             if (!File.Exists(wlid_path))
                 wlid_path = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.System), "msidcrl40.dll");
-            // hack to get older versions to show up as existing but old
-            if (!File.Exists(wlid_path))
-            {
-                wlid_path = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.System), "msidcrl30.dll");
-                is_old = true;
-            }
             // final check - do we have a valid path
             if (File.Exists(wlid_path))
             {
+                string productName = UtilityFuncs.GetProductName(wlid_path);
                 Version wlid_version = UtilityFuncs.GetProductVersion(wlid_path);
-                wlidInstallLabel.Text = "Assistant installed!";
-                // are we on 8+?
-                if (UtilityFuncs.IsWindowsModern())
-                    wlidInfoLabel.Text = "";
-                else
-                    wlidInfoLabel.Text = $"Version {wlid_version}";
-
-                Bitmap wlidIcon = UtilityFuncs.Get48x48Icon(wlid_path);
-                if (wlidIcon != null)
-                    wlidLogoPicture.Image = wlidIcon;
-                else
-                    wlidLogoPicture.Image = Resources.WLIDOld;
-
-                // hardcoded latest version. sucks?
-                // technically this isn't even the latest version - newer versions do in fact exist
-                if (UtilityFuncs.IsWindowsModern() || (!is_old && wlid_version.CompareTo(new Version("6.500.3165.0")) >= 0))
+                // check if we're the official Microsoft IDCRL or our fake one
+                if (productName != "Games for Linux - LIVE")
                 {
-                    installWLIDButton.Enabled = false;
-                    installWLIDButton.Text = UtilityFuncs.IsWindowsModern() ? "Included in Windows" : "Up to date!";
+                    wlidGroup.Text = "Windows Live ID assistant";
+
+                    wlidInstallLabel.Text = "Assistant installed!";
+                    // are we on 8+?
+                    if (UtilityFuncs.IsWindowsModern())
+                        wlidInfoLabel.Text = "";
+                    else
+                        wlidInfoLabel.Text = $"Version {wlid_version}";
+
+                    Bitmap wlidIcon = UtilityFuncs.Get48x48Icon(wlid_path);
+                    if (wlidIcon != null)
+                        wlidLogoPicture.Image = wlidIcon;
+                    else
+                        wlidLogoPicture.Image = Resources.WLIDOld;
+
+                    // hardcoded latest version. sucks?
+                    // technically this isn't even the latest version - newer versions do in fact exist
+                    if (UtilityFuncs.IsWindowsModern() || (!is_old && wlid_version.CompareTo(new Version("6.500.3165.0")) >= 0))
+                    {
+                        installWLIDButton.Enabled = false;
+                        installWLIDButton.Text = UtilityFuncs.IsWindowsModern() ? "Included in Windows" : "Up to date!";
+                    }
+                    else
+                    {
+                        installWLIDButton.Enabled = true;
+                        installWLIDButton.Text = "Update sign-in assistant";
+                    }
                 }
                 else
                 {
-                    installWLIDButton.Enabled = true;
-                    installWLIDButton.Text = "Update sign-in assistant";
+                    wlidGroup.Text = "Games for Linux - LIVE patcher";
+
+                    wlidInstallLabel.Text = "Patcher installed!";
+                    wlidInfoLabel.Text = $"Version {wlid_version}";
+                    Bitmap gfllIcon = UtilityFuncs.Get48x48Icon(wlid_path);
+                    if (gfllIcon != null)
+                        wlidLogoPicture.Image = gfllIcon;
+                    else
+                        wlidLogoPicture.Image = Resources.WLIDOld;
+
+                    string idcrl_path = Path.Combine(GfWLRegistry.GetMsidcrlPath(), "msidcrl67.dll");
+                    Version idcrl_version = UtilityFuncs.GetProductVersion(idcrl_path);
+                    if (idcrl_version == null)
+                    {
+                        wlidGfllLabel.Visible = true;
+                        wlidGfllLabel.Text = $"IDCRL missing.";
+                        // TODO(Emma): make IDCRL problems fixable
+                    } else
+                    {
+                        wlidGfllLabel.Visible = true;
+                        wlidGfllLabel.Text = $"IDCRL: {idcrl_version}";
+                    }
+                    installWLIDButton.Enabled = false;
+                    installWLIDButton.Text = "Installed!";
+
                 }
             }
             else
             {
-                wlidLogoPicture.Image = Resources.WLIDUnknown;
-                wlidInstallLabel.Text = "Assistant missing.";
-                wlidInfoLabel.Text = "";
-                installWLIDButton.Enabled = true;
-                installWLIDButton.Text = "Install sign-in assistant";
+                // TODO(Emma): make GfLL installer
+                /*if (UtilityFuncs.IsWine())
+                {
+                    wlidGroup.Text = "Games for Linux - LIVE patcher";
+                    wlidLogoPicture.Image = Resources.GfWLUnknown;
+                    wlidInstallLabel.Text = "Patcher missing.";
+                    wlidInfoLabel.Text = "";
+                    installWLIDButton.Enabled = true;
+                    installWLIDButton.Text = "Install GfLL";
+                }
+                else*/
+                {
+                    wlidGroup.Text = "Windows Live ID assistant";
+                    wlidLogoPicture.Image = Resources.WLIDUnknown;
+                    wlidInstallLabel.Text = "Assistant missing.";
+                    wlidInfoLabel.Text = "";
+                    installWLIDButton.Enabled = true;
+                    installWLIDButton.Text = "Install sign-in assistant";
+                }
             }
         }
 
@@ -546,7 +589,8 @@ namespace GfWLUtility
         {
             if (UtilityFuncs.IsWindows64Bit())
                 DoMSIDownloadAndInstall(StaticFileInformation.wllogin_64_msi);
-            DoMSIDownloadAndInstall(StaticFileInformation.wllogin_32_msi);
+            else
+                DoMSIDownloadAndInstall(StaticFileInformation.wllogin_32_msi);
             LoadWLIDGroup();
         }
 
@@ -582,14 +626,6 @@ namespace GfWLUtility
             }
             else
                 MessageBox.Show("The cache folder does not exist.", "GfWL Utility", MessageBoxButtons.OK, MessageBoxIcon.Information);
-        }
-
-        private void refreshProfileInfoButton_Click(object sender, EventArgs e)
-        {
-            ProfileInfoExtractor p = new ProfileInfoExtractor();
-            p.ShowDialog(this);
-            if (p.Success)
-                SearchForProfiles();
         }
     }
 }
